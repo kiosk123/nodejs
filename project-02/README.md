@@ -2,7 +2,7 @@
 
 노드는 기본적인 내장 객체와 내장 모듈을 제공하므로 따로 설치하지 안항도 바로 사용가능하다.
 
-### global
+## global
 
 브라우저의 window와 같은 전역 객체  
 모든 파일에서 접근가능 하며 window.open에서 window 생략 후 open만으로 호출 가능한 것 처럼 global도 생략가능
@@ -20,7 +20,7 @@ global.message = 'hello'
 console.log(A()) //hello 출력
 ```
 
-### console 
+## console 
 
 global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다. - console.js 참고
 - console.time(레이블): console.timeEnd(레이블)과 대응되어 같은 레이블을 가진 time과 timeEnd사이의 시간을 측정한다.
@@ -31,7 +31,7 @@ global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다
   - depth 옵션 : 객체를 몇 단계까지 보여줄지를 결정. 기본값은 2
 - console.trace(레이블): 에러가 어디서 발생했는지 추적할 수 있게 해준다
 
-### 타이머 - timer.js 참고
+## 타이머 - timer.js 참고
 타이머 기능 제공하는 함수 setTimeout, setInterval, setImmediate는 노드에서 window 대신 global에 들어있다.
 다음 타이머 함수들은 아이디를 반환한다.
 - setTimeout(callback, millis) : 주어진 millis 이후에 callback 실행
@@ -43,6 +43,25 @@ global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다
 - clearInterval(아이디) : setInterval을 취소
 - clearImmediate(아이디) : setImmediate를 취소
 
-### __filename, __dirname - filename.js 참고
+## __filename, __dirname - filename.js 참고
 - __filename : 현재 파일 경로 확인
 - __dirname : 현재 디렉터리 경로 확인
+
+## exports
+module 객체를 이용해서 module.exports 형태로 모듈을 만들었지만 exports만으로도 만들 수 있음  
+exports가 module.exports를 참조하는 관계이기 때문에 참조 관계가 깨지는 것을 방지하기 위해  
+한 모듈에서 exports와 module.exports를 혼용하지 말 것!!!
+```js
+// module.exports 방식
+module.exports = {
+    odd,
+    even
+}
+
+// exports 방식
+exports.odd = 'odd'
+exports.even = 'even
+```
+
+## process - process.js 참고
+현재 실행되고 있는 노드 프로세스에 대한 정보를 담고 있다.

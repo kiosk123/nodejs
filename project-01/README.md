@@ -3,7 +3,7 @@
 특정한 기능의 코드를 한곳에 모아 파일로 만든 다음 모듈로서 재활용 가능  
 여기서는 ES5 스타일의 모듈 불러오고 내보내기를 작성함
 
-#### var.js
+## var.js
 
 ```js
 const odd = '홀수입니다.'
@@ -16,7 +16,7 @@ module.exports = {
 }
 ```
 
-#### func.js
+## func.js
 ```js
 const {odd, even} = require('./var') // 모듈 import
 
@@ -47,7 +47,7 @@ const checkOddOrEven = (num) => {
 export default checkOddOrEven
 ```
 
-#### index.js
+## index.js
 ```js
 const {odd, even} = require('./var')
 const checkNumber = require('./func') // 모듈에서 값을 불러 올때 변수 이름을 다르게 지정가능
@@ -63,7 +63,7 @@ console.log(checkNumber(10))
 console.log(checkStringOddOrEven('hello'))
 ```
 
-#### 코드 실행
+## 코드 실행
 ```bash
 $ node index
 
