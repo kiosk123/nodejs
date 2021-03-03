@@ -1,5 +1,8 @@
 # nodeJS 연습
 
+## 목록
+- 01 - 코드 모듈화 하기 
+
 ## nodeJS 설치 - 우분투
 ```bash
 $ sudo apt-get update
@@ -51,7 +54,17 @@ $ npm version
 $ npx -v
 ```
 
+6. vsode에 확장으로 node-snippets를 설치한다.
+
 ## npm 버전 업데이트
 ```bash
 $ npm install -g npm
 ```
+
+## 자바스크립트 파일 실행하기
+```bash
+$ node <javascript 파일명> # 확장자 .js는 생략가능
+
+$ node src/helloworld
+```
+
