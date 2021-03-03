@@ -1,7 +1,12 @@
 # nodeJS 연습
 
+## 개발도구 
+- vscode
+  - Node.js Modules Intellisense 설치
+  - npm Intellisense
 ## 목록
 - 01 - 코드 모듈화 하기 
+- 02 - 노드 내장 객체
 
 ## nodeJS 설치 - 우분투
 ```bash
