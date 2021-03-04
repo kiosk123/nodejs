@@ -22,7 +22,7 @@ console.log(A()) //hello 출력
 
 ## console 
 
-global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다. - console.js 참고
+global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다. - console.js 
 - console.time(레이블): console.timeEnd(레이블)과 대응되어 같은 레이블을 가진 time과 timeEnd사이의 시간을 측정한다.
 - console.log(내용): 평범한 로그를 콘솔에 표시
 - console.error(에러 내용): 에러를 콘솔에 표시
@@ -31,7 +31,7 @@ global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다
   - depth 옵션 : 객체를 몇 단계까지 보여줄지를 결정. 기본값은 2
 - console.trace(레이블): 에러가 어디서 발생했는지 추적할 수 있게 해준다
 
-## 타이머 - timer.js 참고
+## 타이머 - timer.js 
 타이머 기능 제공하는 함수 setTimeout, setInterval, setImmediate는 노드에서 window 대신 global에 들어있다.
 다음 타이머 함수들은 아이디를 반환한다.
 - setTimeout(callback, millis) : 주어진 millis 이후에 callback 실행
@@ -43,7 +43,7 @@ global 객체에 포함되어 있으며, 보통 디버깅을 위해 사용한다
 - clearInterval(아이디) : setInterval을 취소
 - clearImmediate(아이디) : setImmediate를 취소
 
-## __filename, __dirname - filename.js 참고
+## __filename, __dirname - filename.js 
 - __filename : 현재 파일 경로 확인
 - __dirname : 현재 디렉터리 경로 확인
 
@@ -63,5 +63,5 @@ exports.odd = 'odd'
 exports.even = 'even
 ```
 
-## process - process.js 참고
+## process - process.js 
 현재 실행되고 있는 노드 프로세스에 대한 정보를 담고 있다.

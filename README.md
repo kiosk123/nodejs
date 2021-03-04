@@ -2,12 +2,14 @@
 
 ## 개발도구 
 - vscode
+  - Prettier 설치
   - Node.js Modules Intellisense 설치
   - npm Intellisense
 ## 목록
 - 01 - 코드 모듈화 하기 
 - 02 - 노드 내장 객체
 - 03 - 노드 내장 모듈
+- 04 - 파일 시스템 접근
 
 ## nodeJS 설치 - 우분투
 ```bash
