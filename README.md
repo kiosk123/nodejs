@@ -3,6 +3,7 @@
 ## 개발도구 
 - vscode
   - Prettier 설치
+  - node-snippets 설치
   - Node.js Modules Intellisense 설치
   - npm Intellisense
 ## 목록
@@ -64,8 +65,6 @@ $ node -v
 $ npm version
 $ npx -v
 ```
-
-6. vsode에 확장으로 node-snippets를 설치한다.
 
 ## npm 버전 업데이트
 ```bash
