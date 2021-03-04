@@ -19,4 +19,11 @@ url 처리 방식은 두가지 인데 노드 7버전 부터 추가된 WHATWG 방
 - 기존 노드 방식 - url.js 참고
   - 주소가 host 부분없이 pathname(ex: /book/bookList.jsp)만 오는 경우에는 WHATWG방식으로 처리 할 수 없기 때문에 기존 노드 방식으로 처리
 - WHATWG 방식 - whatwg.js 참고
+  - searchParams 라는 특수한 객체를 이용하여 query string을 처리하는데 용이함
+
+### querystring - querystring.js 참고
+WHATWG 방식의 url 대신 기존 노드의 url을 사용할 때 search 부분을 사용하기 쉽게 객체로 만드는 모듈
+
+### cryto - cryto.js 참고
+다양한 방식의 암호화를 도와주는 모듈
 
