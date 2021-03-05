@@ -4,9 +4,9 @@ const constants = require('fs').constants;
 /**
  * 파일 쓰기
  */
-fs.writeFile('./writeme.txt', '글이 입력됩니다')
+fs.writeFile('./data/writeme.txt', '글이 입력됩니다')
     .then(() => {
-        return fs.readFile('./writeme.txt');
+        return fs.readFile('./data/writeme.txt');
     })
     .then((data) => {
         console.log(data.toString());
@@ -19,7 +19,7 @@ fs.writeFile('./writeme.txt', '글이 입력됩니다')
 /**
  * 파일 읽기
  */
-fs.readFile('./readme.txt')
+fs.readFile('./data/readme.txt')
     .then((data) => {
         console.log(data);
         console.log(data.toString());

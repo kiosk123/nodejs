@@ -1,7 +1,7 @@
 const fs = require('fs')
 
 // 파일 읽기
-fs.readFile('./data.txt', (err, data) => {
+fs.readFile('./data/data.txt', (err, data) => {
     if (err) {
         throw err
     }
@@ -10,11 +10,11 @@ fs.readFile('./data.txt', (err, data) => {
 })
 
 // 파일 쓰기
-fs.writeFile('./write.txt', '글이 입력됩니다', (err, data) => {
+fs.writeFile('./data/write.txt', '글이 입력됩니다', (err, data) => {
     if (err) {
         throw err
     }
-    fs.readFile('./write.txt', (err, data) => {
+    fs.readFile('./data/write.txt', (err, data) => {
         if (err) {
             throw err
         }
