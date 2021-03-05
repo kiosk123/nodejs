@@ -14,7 +14,7 @@
 url 처리 방식은 두가지 인데 노드 7버전 부터 추가된 WHATWG 방식과 이전부터 사용하던 url 방식 두가지  
   
 다음 그림에서 가운데 주소를 기준으로 위쪽이 기존 노드 url 구분법 아래쪽이 WAHTWG의 url 구분법이다
-![1.png](./1.png)
+![1.png](./img/1.png)
 
 - 기존 노드 방식 - url.js
   - 주소가 host 부분없이 pathname(ex: /book/bookList.jsp)만 오는 경우에는 WHATWG방식으로 처리 할 수 없기 때문에 기존 노드 방식으로 처리
