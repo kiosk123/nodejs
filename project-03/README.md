@@ -32,5 +32,5 @@ WHATWG 방식의 url 대신 기존 노드의 url을 사용할 때 search 부분�
 ### util - util.js
 각종 편의 기능을 모아둔 모듈
 - util.deprecate - 함수가 deprecated 처리 되었음을 알려줌
-- util.promisify - 콜백 패턴을 프로미스 패컨으로 바꿔줌
+- util.promisify - 콜백 패턴을 프로미스 패턴으로 바꿔줌
 
