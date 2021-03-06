@@ -42,4 +42,4 @@ $ npm start
 ```
 
 ### Express 프레임워크 구조
-![2.png](./img/2.png)  
+![2.png](./img/2.png =250x)  
