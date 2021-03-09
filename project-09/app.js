@@ -7,6 +7,7 @@ var bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var session = require('express-session')
 
 var app = express();
 
@@ -21,6 +22,15 @@ app.use(function(req, res, next) {
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'secret code',
+  cookie: {
+    httpOnly: true,
+    secure: false
+  }
+}))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.raw())

@@ -204,3 +204,160 @@ public/stylesheets/styles.css는 http://localhost:3000/stylesheets/styles.css로
 ```js
 app.use(express.static(path.join(__dirname, 'public')))
 ```
+
+### express-session
+세션 관리용 미들웨어. 로그인등 세션 구현시 유용하다.  
+express에 포함되어 있지 않기 때문에 따로 설치한다.
+```bash
+$ npm install express-session
+```
+
+설치 후 app.js에 express-session을 연결한다.  
+1.5버전 이전이라면 cookie-parser 뒤에 위치해야 하며, 그 이후 버전이라면 위치는 상관없다
+```js
+var session = require('express-session')
+
+app.use(session({ //세션 설정에 대한 옵션을 인자로 받음
+  resave: false, //세션에 수정사항이 없더라도 세션을 다시 저장할 지 여부
+  saveUninitialized: false, // 세션에 저장할 내역이 없더라도 세션을 다시 저장할지에 대한 설정
+  secret: 'secret code', // !필수 - cookie-parser의 비밀키와 같은 역할 cookie-parser의 secret과 값 동일하게 설정
+  cookie: { // 세션 쿠키에 대한 설정- maxAge, domain, path, expires, sameSite, httpOnly, secure등 제공
+    httpOnly: true,
+    secure: false // true일 경우 https에서만 사용 false일경우 https가 아닌 경우에도 사용 - 배포시에는 true 권장
+  }
+}))
+```
+
+### connect-flash
+일회성 메시지들을 웹 브라우저에 나타낼때 좋다.  
+express에 포함되어 있지 않기 때문에 직접 설치해야한다.
+```bash
+$ npm i connect-flash
+```
+
+connect-flash 미들웨어는 cookie-parser와 express-session을 사용하므로 이들보다는 뒤에 위치해야한다.
+```js
+var session = require('express-session')
+var flash = require('connect-flash')
+
+var indexRouter = require('./routes/index')
+var usersRouter = require('./routes/users)
+
+app.use(session({ 
+  resave: false,
+  saveUninitialized: 
+  secret: 'secret code',
+  cookie: { 
+    httpOnly: true,
+    secure: false 용 false일경우 https가 아닌 경우에도 사용 - 배포시에는 true 권장
+  }
+}))
+
+app.use(flash())
+```
+
+flash 미들웨어는 req 객체에 req.flash 메서드를 추가한다.  
+`req.flash(키, 값)`으로 키에 값을 설정하고, `req.flash(키)`로 해당키에 대한 값을 불러온다.
+```js
+var express = require('express');
+var router = express.Router();
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
+
+router.get('/flash', function(req, res) {
+  req.session.message = '세션 메시지';
+  req.flash('message', 'flash 메시지'); //flash()를 통한 값 설정
+  res.redirect('/users/flash/result');
+});
+
+router.get('/flash/result', function(req, res) {
+  res.send(`${req.session.message} ${req.flash('message')}`); //flash()를 통해서 값을 가져오기
+});
+
+module.exports = router;
+```
+
+### Router
+app.js에서 다음 코드를 보면 `/`로 시작하는 url은 indexRouter가 처리하고 있고 `/users`로 시작하는 url은
+usersRouter에서 처리하고 있다.
+```js
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+//...
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+```
+userRouter가 처리하는 파일 /routes/users로 이동해서 코드를 보면  
+`/users`와 관련된 url을 get, post, delete, put등을 이용해서 처리할 수 있다.
+http Method 구현 함수의 첫번째 파라미터가 sub url인데 다음 코드에서 get 함수의 `/`값이다.  
+  
+이 값은 `/users` + `/`해서 `/users/`가 되어 이 url의 모든 get 요청을 처리하게 된다.
+```js
+var express = require('express');
+var router = express.Router();
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
+
+module.exports = router;
+```
+
+라우터 주소에는 특수한 패턴을 사용할 수 있다. 스프링의 @PathVariable과 비슷한다.
+특수한 패턴을를 사용하는 라우터 **일반 라우터보다 뒤에 위치**해야 한다.
+```js
+// /users/1 /users/123과 같은 패턴과 패칭됨
+router.get('/users/:id', function(req, res) {
+  // id 값은 req.params를 통해 접근 가능
+  console.log(req.params.id, req.query)
+})
+```
+
+위 라우터에서 `/users/123?limit=10&skip=10`같은 패턴으로 오는 경우 다음과 같이 처리
+```js
+// /users/1 /users/123과 같은 패턴과 패칭됨
+router.get('/users/:id', function(req, res) {
+  // id 값은 req.params를 통해 접근 가능
+  console.log(req.params.id)
+  console.log(req.query.limit)
+  console.log(req.query.skip)
+})
+```
+에러가 발생하지 않았다면 라우터는 요청을 보낸 클라이언트에게 응답을 보내야한다.  
+```js
+res.send(버퍼 또는 문자열 또는 HTML 또는 JSON)
+res.sendFile(파일 경로)
+res.json(JSON 데이터)
+res.redirect(주소)
+res.render('템플릿 파일 경로', {변수})
+```
+
+기본 적으로 200 HTTP 상태코드를 응답하지만 (res.redirect는 302), 직접 바꿔줄 수도 있다.
+```js
+res.status(404).send('Not Found')
+```
+요청을 처리할 라우터가 없다면 다음 미들웨어로 넘어가서 에러 핸들러로 넘기라고 처리한후  
+에러 핸들러에서 에러를 처리한다.
+
+```js
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+//...
+```
