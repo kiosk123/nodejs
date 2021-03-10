@@ -4,7 +4,7 @@
 SCHEMA - nodejs  
 상세한 SQL은 nodejs.sql 파일 참고
 
-### sequelize 설치
+### sequelize 설치 - [참고](https://sequelize.org/v5/index.html)
 sequelize는 ORM 라이브러리이다.  
 ```bash
 $ express project-11 --view=ejs
@@ -77,4 +77,72 @@ db.Sequelize = Sequelize;
 module.exports = db;
 ```
 
-mysql을 연결한다.
+sequelize를 통해 express와 mysql을 연결해야한다.  
+app.js에서 추가해준다.
+```js
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var sequelize = require('./models').sequelize; //require('./models')는 require('./models/index.js')와 동일
+
+var app = express();
+sequelize.sync(); //호출시 mysql과 연동
+```
+
+User와 Comment 테이블에 연결하기 위한 모델을 정의한다.  
+sequelize는 기본적으로 모델이름은 단수형으로 테이블을 복수형으로 사용한다.  
+  
+sequelize는 id를 기본키로 연결하기 때문에 id컬럼은 적어줄 필요가 없다.  
+sequelize.defind 메서드로 테이블명과 각 컬럼의 스펙을 입력한다.  
+  
+mysql 테이블과 컬럼 내용이 일치해야 정확하게 대응된다
+**models/user.js**
+```js
+module.exports = (sequelize, DataTypes) => {
+  return sequelize.define('user', {
+    name: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      unique: true,
+    },
+    age: {
+      type: DataTypes.INTEGER.UNSIGNED, //zerofill 옵션을 사용하고 싶다면 DataTypes.INTEGER.UNSIGNED.ZEROFILL을 적어줌
+      allowNull: false,
+    },
+    married: {
+      type: DataTypes.BOOLEAN, //mysql tinyint
+      allowNull: false,
+    },
+    comment: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('now()'),
+    },
+  }, { //테이블 옵션
+    timestamps: false, //true일경우 createdAt과 updatedAt컬럼 추가
+    //paranoid: true, //timestamp가 true일경우 사용가능 deletedAt 컬럼 추가 데이터삭제시 삭제날짜 입력되고 데이터 조회시 deletedAt이 null인 row만 조회 
+  });
+};
+```
+
+**models/comment.js**
+```js
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define('comment', {
+      comment: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: sequelize.literal('now()'),
+      },
+    }, {
+      timestamps: false,
+    });
+  };
+  ```
