@@ -59,7 +59,7 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 ```
-sequelize-cli가 생성해주는 코드는 그대로 사용했는때 에러가 발생하고 필요없는 부분도 많으므로 다음과 같이 수정한다.
+sequelize-cli가 생성해주는 코드는 그대로 사용했는때 에러가 발생하고 필요없는 부분도 많으므로 다음과 같이 수정한다.  
 **models/index.js**
 ```js
 const path = require('path');
