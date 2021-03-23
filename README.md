@@ -18,6 +18,7 @@
 - 09 - Express 프레임워크 사용하기
 - 10 - 템플릿 엔진 사용하기
 - 11 - mysql 연동과 sequelize orm 설치
+- 12 - 몽고디비
 
 ## nodeJS 설치 - 우분투
 ```bash
